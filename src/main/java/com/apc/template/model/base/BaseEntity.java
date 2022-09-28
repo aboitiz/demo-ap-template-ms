@@ -30,11 +30,11 @@ public class BaseEntity<T> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    /**
-     * The Creator id.
-     */
-    @Column( updatable = false )
-    protected String createdBy = "";
+//    /**
+//     * The Creator id.
+//     */
+//    @Column( updatable = false )
+//    protected String createdBy = "";
 
     /**
      * The Created time.
@@ -42,7 +42,7 @@ public class BaseEntity<T> implements Serializable {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column( updatable = false )
-    protected Date createdTime;
+    protected Date createdAt;
 
 
 }
