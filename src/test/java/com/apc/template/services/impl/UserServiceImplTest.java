@@ -1,15 +1,14 @@
 package com.apc.template.services.impl;
 
+import com.apc.template.commons.dto.UserDTO;
 import com.apc.template.model.User;
 import com.apc.template.repository.UserRepository;
-import com.apc.template.commons.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,6 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 
@@ -67,7 +65,8 @@ class UserServiceImplTest {
             when(userServiceImpl.saveOrUpdate(UserDTO.builder()
                     .username("test-username").address1("address1").address2("address2")
                     .build())).thenReturn(getMockUser());
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
     }
 
@@ -88,7 +87,7 @@ class UserServiceImplTest {
         u.setAddress2("test-address2");
         u.setId(Long.parseLong(String.valueOf(random.nextInt(999999) + 100)));
         u.setInactive(false);
-        u.setTimestamp(new Date());
+        u.setModifiedAt(new Date());
         return u;
     }
 }

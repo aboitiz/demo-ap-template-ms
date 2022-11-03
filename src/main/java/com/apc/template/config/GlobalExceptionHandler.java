@@ -18,6 +18,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Generates timestamp of error log
+     *
      * @return
      * @throws APException
      */
@@ -26,46 +27,42 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         /**
          * SET format and timezone to default;
          */
-        return DateTimeHelper.formatDateToTimestamp(new Date(), null, null);
+        return DateTimeHelper.formatDateToTimestamp(new Date(), "", null);
     }
 
     /**
      * Builds error response based on exception thrown
+     *
      * @param statusCode
      * @param apiResponse
      * @param httpReq
      * @param httpStatus
      * @return
      */
-    protected ResponseEntity<BaseAPIErrorResponse> buildErrorResponse(String statusCode, APIResponse apiResponse,
-                                                                               HttpServletRequest httpReq, HttpStatus httpStatus) {
+    protected ResponseEntity<BaseAPIErrorResponse> buildErrorResponse(String statusCode, APIResponse apiResponse, HttpServletRequest httpReq, HttpStatus httpStatus) throws APException {
 
         BaseAPIErrorResponse errResponse = new BaseAPIErrorResponse();
 
-        try {
-            errResponse.setTimestamp(getTimestamp());
-            errResponse.setStatusCode(statusCode);
-            errResponse.setMessage(apiResponse.getMessage());
-            errResponse.setData(httpReq.getRequestURI());
-            errResponse.setError(apiResponse.getError());
 
-        } catch (APException e) {
-            log.debug(e.getMessage(), e);
-            buildErrorResponse(String.valueOf(apiResponse.getCode()), apiResponse, httpReq, httpStatus);
-        }
+        errResponse.setTimestamp(getTimestamp());
+        errResponse.setStatusCode(statusCode);
+        errResponse.setMessage(apiResponse.getMessage());
+        errResponse.setData(httpReq.getRequestURI());
+        errResponse.setError(apiResponse.getError());
+
         return new ResponseEntity<>(errResponse, httpStatus);
     }
 
     /**
      * Generic error response for internal server error
+     *
      * @param ex
      * @param httpReq
      * @return
      */
     @ExceptionHandler(APException.class)
-    public ResponseEntity<BaseAPIErrorResponse> handleUnexpectedException(Exception ex, HttpServletRequest httpReq) {
+    public ResponseEntity<BaseAPIErrorResponse> handleUnexpectedException(Exception ex, HttpServletRequest httpReq) throws APException {
         log.error(APIResponse.GENERAL_DECLINE.getDescription(), ex);
-        return buildErrorResponse(String.valueOf(APIResponse.GENERAL_DECLINE.getCode()), APIResponse.GENERAL_DECLINE,
-                httpReq, HttpStatus.BAD_REQUEST);
+        return buildErrorResponse(String.valueOf(APIResponse.GENERAL_DECLINE.getCode()), APIResponse.GENERAL_DECLINE, httpReq, HttpStatus.BAD_REQUEST);
     }
 }

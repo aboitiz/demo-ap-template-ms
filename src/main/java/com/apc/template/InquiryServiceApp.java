@@ -7,8 +7,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@EntityScan(basePackages = {"com.apc.template.model"})
-@EnableJpaRepositories(basePackages = {"com.apc.template.repository"})
 @EnableSwagger2
 @SpringBootApplication
 public class InquiryServiceApp {
