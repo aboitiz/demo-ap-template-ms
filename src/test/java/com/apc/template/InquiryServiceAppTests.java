@@ -6,8 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class InquiryServiceAppTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void main() {
+        InquiryServiceApp.main(new String[] {});
+    }
 
 }

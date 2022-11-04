@@ -25,16 +25,16 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(APIPathConstants.USER_BASE_PATH)
-    public BaseResponse getUser() {
-        BaseResponse response = new BaseResponse();
+    public BaseResponse<?> getUser() {
+        BaseResponse<List<User>> response = new BaseResponse<>();
         response.setData(userService.findAll());
         log.info("transform to standard response: " + response.toJsonString(false));
         return response;
     }
 
     @PostMapping(APIPathConstants.USER_BASE_PATH + "/save")
-    public BaseResponse saveOrUpdate(@RequestBody UserDTO user) {
-        BaseResponse response = new BaseResponse(userService.saveOrUpdate(user));
+    public BaseResponse<?> saveOrUpdate(@RequestBody UserDTO user) {
+        BaseResponse<?> response = new BaseResponse<>(userService.saveOrUpdate(user));
         log.info("transform to standard response: " + MapperHelper.objectToJson(response));
         return response;
     }
