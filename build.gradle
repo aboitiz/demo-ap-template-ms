@@ -17,10 +17,14 @@ configurations {
 }
 
 repositories {
-    mavenCentral()
-    mavenLocal()
+    maven {
+        url "$repository"
+        credentials {
+            username "$mavenUser"
+            password "$mavenPassword"
+        }
+    }
 }
-
 
 dependencies {
     implementation 'com.apc.commons:ap-commons-ms:0.0.1-SNAPSHOT'
@@ -116,4 +120,11 @@ check.dependsOn jacocoTestCoverageVerification
 jacoco {
     toolVersion = "0.8.8"
     reportsDirectory = layout.buildDirectory.dir('jacocoReport')
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "&projectKey"
+        property 'sonar.projectName', '&projectName'
+    }
 }
