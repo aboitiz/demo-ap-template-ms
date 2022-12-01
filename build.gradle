@@ -18,6 +18,7 @@ configurations {
 }
 
 repositories {
+    mavenCentral()
     maven {
         url "$repository"
         credentials {
