@@ -111,7 +111,7 @@ jacocoTestCoverageVerification {
                     'com.apc.template.model.*'
             ]
             limit {
-                minimum = 0.90
+                minimum = 0.20
             }
         }
     }
