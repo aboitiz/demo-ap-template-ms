@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.apc.commons:ap-commons-ms:0.0.1-SNAPSHOT'
+    implementation 'com.apc.commons:ap-commons-ms:0.0.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     // implementation 'org.springframework.boot:spring-boot-starter-security'
