@@ -107,10 +107,12 @@ jacocoTestCoverageVerification {
             excludes = [
                     'com.apc.template.exceptions.*',
                     'com.apc.template.commons.*',
-                    'com.apc.template.model.*'
+                    'com.apc.template.model.*',
+                    'com.apc.template.config.SwaggerConfiguration',
+                    'com.apc.template.InquiryServiceApp'
             ]
             limit {
-                minimum = 0.00
+                minimum = 0.90
             }
         }
     }
