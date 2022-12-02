@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'org.liquibase.gradle' version '2.1.0'
     id 'jacoco'
+    id "org.sonarqube" version "3.4.0.2513"
 }
 
 group = 'com.apc.template'
@@ -17,13 +18,17 @@ configurations {
 }
 
 repositories {
-    mavenCentral()
-    mavenLocal()
+    maven {
+        url "$repository"
+        credentials {
+            username "$mavenUser"
+            password "$mavenPassword"
+        }
+    }
 }
 
-
 dependencies {
-    implementation 'com.apc.commons:ap-commons-ms:0.0.1-SNAPSHOT'
+    implementation 'com.apc.commons:ap-commons-ms:0.0.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     // implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -102,7 +107,9 @@ jacocoTestCoverageVerification {
             excludes = [
                     'com.apc.template.exceptions.*',
                     'com.apc.template.commons.*',
-                    'com.apc.template.model.*'
+                    'com.apc.template.model.*',
+                    'com.apc.template.config.SwaggerConfiguration',
+                    'com.apc.template.InquiryServiceApp'
             ]
             limit {
                 minimum = 0.90
@@ -116,4 +123,11 @@ check.dependsOn jacocoTestCoverageVerification
 jacoco {
     toolVersion = "0.8.8"
     reportsDirectory = layout.buildDirectory.dir('jacocoReport')
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "&projectKey"
+        property 'sonar.projectName', '&projectName'
+    }
 }
