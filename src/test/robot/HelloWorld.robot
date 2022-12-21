@@ -14,4 +14,4 @@ Verify GET Request and validate the response code and response body
 
     ${title}=     get value from json   ${json_obj}    HelloWorld.title
 
-    log to console    ${title[0]}
+    log to console    ${title[0]} 
