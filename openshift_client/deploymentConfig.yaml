@@ -9,7 +9,7 @@ spec:
       imageChangeParams:
         automatic: true
         containerNames:
-          {{oc_app_name}}
+          - {{oc_app_name}}
         from:
           kind: ImageStreamTag
           namespace: {{oc_project}}
