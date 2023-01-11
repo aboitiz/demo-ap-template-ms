@@ -5,7 +5,7 @@ metadata:
   namespace: {{oc_project}}
 spec:
   triggers:
-    - type: {{oc_app_name}}
+    - type: ImageChange
       imageChangeParams:
         automatic: true
         containerNames:
