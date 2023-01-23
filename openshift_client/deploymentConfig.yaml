@@ -25,6 +25,9 @@ spec:
         name: {{oc_app_name}}
     spec:
       containers:
+        - name: {{oc_app_name}}
+          image: {{oc_app_repo}}/{{oc_project}}/{{oc_app_name}}:{{oc_app_version}}
+          resources: {}
         - env:
           - name: SPRING_DATASOURCE_URL
             valueFrom:
@@ -41,6 +44,4 @@ spec:
               secretKeyRef:
                 name: spring.datasource
                 key: password
-        - name: {{oc_app_name}}
-          image: {{oc_app_repo}}/{{oc_project}}/{{oc_app_name}}:{{oc_app_version}}
-          resources: {}
+
