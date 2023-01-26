@@ -17,6 +17,10 @@ configurations {
     }
 }
 
+//repositories {
+//    mavenCentral()
+//    mavenLocal()
+//}
 repositories {
     maven {
         url "$repository"
@@ -28,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.apc.commons:ap-commons-ms:0.0.1'
+    implementation 'com.apc.commons:ap-commons-ms:0.0.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     // implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -130,4 +134,8 @@ sonarqube {
         property "sonar.projectKey", "&projectKey"
         property 'sonar.projectName', '&projectName'
     }
+}
+
+bootRun {
+    systemProperties = System.properties
 }
