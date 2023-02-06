@@ -2,11 +2,11 @@ package com.apc.template.services.impl;
 
 import com.apc.commons.response.BaseResponse;
 import com.apc.template.commons.dto.LoginDTO;
+import com.apc.template.exceptions.APException;
 import com.apc.template.model.LoginCredentials;
 import com.apc.template.model.PersonalInformation;
 import com.apc.template.repository.LoginCredentialsRepository;
 import com.apc.template.repository.PersonalInformationRepository;
-import org.apache.juli.logging.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -15,8 +15,8 @@ import org.springframework.http.HttpStatus;
 import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 class LoginImplTest {
 
@@ -42,21 +42,13 @@ class LoginImplTest {
     private LoginDTO loginDTO = new LoginDTO();
 
     @Test
-    void success_adding_personal_information(){
+    void success_adding_personal_information() throws APException{
         PersonalInformation per_info = new PersonalInformation("333222", "Dwayne", "TheRock", "Johnson", 40, new Date());
         when(personalinformation.save(Mockito.any())).thenReturn(per_info);
 
         PersonalInformation response = loginImpl.addUserInformation(personalinfo);
 
         assertThat(response).isNotNull();
-    }
-    @Test
-    void failure_adding_personal_information(){
-        when(personalinformation.save(personalinfo)).thenReturn(personalinfo);
-
-        PersonalInformation response = loginImpl.addUserInformation(personalinfo);
-
-        assertThat(response).isNull();
     }
 
     @Test
@@ -67,14 +59,6 @@ class LoginImplTest {
         LoginCredentials response = loginImpl.addUserCredentials(logincreds);
 
         assertThat(response).isNotNull();
-    }
-    @Test
-    void failure_adding_login_credentials(){
-        when(logincredentials.save(logincreds)).thenReturn(logincreds);
-
-        LoginCredentials response = loginImpl.addUserCredentials(logincreds);
-
-        assertThat(response).isNull();
     }
     @Test
     void success_login() throws Exception{

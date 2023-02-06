@@ -2,6 +2,8 @@ package com.apc.template.services.impl;
 
 import com.apc.commons.response.BaseResponse;
 import com.apc.template.commons.dto.LoginDTO;
+import com.apc.template.commons.enums.APIResponse;
+import com.apc.template.exceptions.APException;
 import com.apc.template.model.LoginCredentials;
 import com.apc.template.model.PersonalInformation;
 import com.apc.template.repository.LoginCredentialsRepository;
@@ -28,24 +30,16 @@ public class LoginImpl implements LoginService {
     @Override
     public PersonalInformation addUserInformation(PersonalInformation info){
         PersonalInformation information = null;
-        try{
-            information = personalinformation.save(info);
-            log.info("Successfully saved personal information ");
-        }catch (Exception e){
-            log.info("Fail to execute API. Reason {} ", e.getMessage());
-        }
+        information = personalinformation.save(info);
+        log.info("Successfully saved personal information ");
         return information;
     }
 
     @Override
     public LoginCredentials addUserCredentials(LoginCredentials info){
         LoginCredentials credentials = null;
-        try{
-            credentials = logincredentials.save(info);
-            log.info("Successfully saved user credentials ");
-        }catch (Exception e){
-            log.info("Fail to execute API. Reason {} ", e.getMessage());
-        }
+        credentials = logincredentials.save(info);
+        log.info("Successfully saved user credentials ");
         return credentials;
     }
 
