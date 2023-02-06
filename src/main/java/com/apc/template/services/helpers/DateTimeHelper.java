@@ -32,7 +32,7 @@ public class DateTimeHelper {
 
             timestamp = sdf.format(date); // or if you want to save it in String str
         } catch (Exception e) {
-            throw new APException(ExceptionCode.UNEXPECTED_EXCEPTION.getCode(),
+            throw new APException(String.valueOf(ExceptionCode.UNEXPECTED_EXCEPTION.getCode()),
                     "Error @ convertDateToCalendar:String :: date=" + date,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }

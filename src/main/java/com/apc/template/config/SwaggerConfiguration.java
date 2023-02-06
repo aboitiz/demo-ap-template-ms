@@ -16,6 +16,7 @@ import java.util.function.Predicate;
 public class SwaggerConfiguration {
 
     public static final String USER_TAG = "user-api";
+    public static final String LOGIN = "login";
 
     @Bean
     public Docket api() {
@@ -25,7 +26,8 @@ public class SwaggerConfiguration {
                 .paths(Predicate.not(PathSelectors.regex("/error")))
                 .paths(Predicate.not(PathSelectors.regex("/profile")))
                 .build()
-                .tags(new Tag(USER_TAG, "This page documents User RESTful Web Service Endpoints"));
+                .tags(new Tag(USER_TAG, "This page documents User RESTful Web Service Endpoints"))
+                .tags(new Tag(LOGIN, "This page documents Login RESTful Web Service Endpoints"));
     }
 
 
