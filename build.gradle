@@ -17,7 +17,6 @@ configurations {
     }
 }
 
-/*
 repositories {
     maven {
         url "$repository"
@@ -27,15 +26,9 @@ repositories {
         }
     }
 }
-*/
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
 
 dependencies {
-    implementation 'com.apc.commons:ap-commons-ms:0.0.2'
+    implementation 'com.apc.commons:ap-commons-ms:0.0.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     // implementation 'org.springframework.boot:spring-boot-starter-security'
