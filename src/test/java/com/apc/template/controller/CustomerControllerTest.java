@@ -49,13 +49,35 @@ class CustomerControllerTest {
     }
 
     @Test
-    void failure_customerLogin_bad_request() throws Exception {
+    void failure_customerLogin_validation_bad_request() throws Exception {
         CustomerLoginDTO loginDTO = new CustomerLoginDTO("1", "");
         when(customerService.login(any()))
                 .thenReturn(new BaseResponse<>().setStatusCode(String.valueOf(HttpStatus.OK.value())));
         this.mockMvc.perform(post(CUSTOMER_PATH+"/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginDTO)))
+                .andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void failure_customerLogin_bad_request() throws Exception {
+        CustomerLoginDTO loginDTO = new CustomerLoginDTO("test", "invalid");
+        when(customerService.login(any()))
+                .thenReturn(new BaseResponse<>().setStatusCode(String.valueOf(HttpStatus.BAD_REQUEST.value())));
+        this.mockMvc.perform(post(CUSTOMER_PATH+"/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginDTO)))
+                .andDo(print()).andExpect(status().isForbidden());
+    }
+
+    @Test
+    void failure_customerLogin_exception() throws Exception {
+        CustomerLoginDTO loginDTO = new CustomerLoginDTO("1", "");
+        when(customerService.login(any()))
+                .thenReturn(new BaseResponse<>().setStatusCode(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value())));
+        this.mockMvc.perform(post(CUSTOMER_PATH+"/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginDTO)))
                 .andDo(print()).andExpect(status().isBadRequest());
     }
 
@@ -73,12 +95,25 @@ class CustomerControllerTest {
     }
 
     @Test
-    void failure_customerRegister() throws Exception {
+    void failure_customerRegister_validation() throws Exception {
         CustomerRegisterDTO registerDTO = new CustomerRegisterDTO("1", "p",
                 "", "user",
                 new Date(2011, 2, 5) ,"vdc");
         when(customerService.register(any()))
                 .thenReturn(new BaseResponse<>().setStatusCode(String.valueOf(HttpStatus.CREATED.value())));
+        this.mockMvc.perform(post(CUSTOMER_PATH+"/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(registerDTO)))
+                .andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void failure_customerRegister() throws Exception {
+        CustomerRegisterDTO registerDTO = new CustomerRegisterDTO("Test", "invalid",
+                "test", "user",
+                new Date(2011, 2, 5) ,"vdc");
+        when(customerService.register(any()))
+                .thenReturn(new BaseResponse<>().setStatusCode(String.valueOf(HttpStatus.BAD_REQUEST.value())));
         this.mockMvc.perform(post(CUSTOMER_PATH+"/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerDTO)))

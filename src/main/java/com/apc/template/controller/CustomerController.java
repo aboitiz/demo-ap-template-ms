@@ -30,23 +30,20 @@ public class CustomerController {
     @PostMapping(APIPathConstants.CUSTOMER_BASE_PATH + "/login")
     public ResponseEntity<BaseResponse> customerLogin(@RequestBody @Valid CustomerLoginDTO cred){
         BaseResponse<?> response = customerService.login(cred);
-        log.info(cred.getUsername() + " " + cred.getPassword());
-        log.info(response.toString());
-        if(response.getStatusCode().equals("200")){
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+        HttpStatus status = HttpStatus.OK;
+        if(!response.getStatusCode().equals("200")){
+            status = HttpStatus.FORBIDDEN;
         }
+        return new ResponseEntity<>(response, status);
     }
 
     @PostMapping(APIPathConstants.CUSTOMER_BASE_PATH + "/register")
     public ResponseEntity<BaseResponse> customerRegister(@RequestBody @Valid CustomerRegisterDTO customer){
         BaseResponse<?> response = customerService.register(customer);
-        String statCode = response.getStatusCode();
-        if(statCode.equals("201")){
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        HttpStatus status = HttpStatus.CREATED;
+        if(!response.getStatusCode().equals("201")){
+            status = HttpStatus.BAD_REQUEST;
         }
+        return new ResponseEntity<>(response, status);
     }
 }
