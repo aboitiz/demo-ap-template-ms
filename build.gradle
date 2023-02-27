@@ -129,5 +129,16 @@ sonarqube {
     properties {
         property "sonar.projectKey", "&projectKey"
         property 'sonar.projectName', '&projectName'
+        property 'sonar.coverage.exclusions', coverageExclusionList()
     }
+}
+
+static def coverageExclusionList ()  {
+    return [
+            "**/com/apc/template/model/**",
+            "**/com/apc/template/commons/**",
+            "**/com/apc/template/exceptions/**",
+            "**/com/apc/template/config/SwaggerConfiguration.java",
+            "**/com/apc/template/InquiryServiceApp.java",
+    ]
 }
